@@ -1,50 +1,142 @@
 package de.travelinski
 
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.tooling.preview.Preview
+import de.travelinski.utils.dummy.dummyCurrentUser
+import de.travelinski.utils.dummy.dummyWatchlist
+import de.travelinski.utils.dummy.privateWatchlist
 
-sealed class Screen {
-    object Home: Screen()
-    object Restaurants: Screen()
-}
-
-@Composable
 @Preview
+@Composable
 fun App() {
-    val navController = rememberNavController()
+    var currentScreen by remember { mutableStateOf<Screen>(Screen.Movies) }
 
-    MaterialTheme {
+    var addButtonExpanded by remember { mutableStateOf(false) }
+    var showRatingDialog by remember { mutableStateOf(false) }
+    var showWatchlistDialog by remember { mutableStateOf(false) }
+    var showAddToWatchlistDialog by remember { mutableStateOf(false) }
+
+
+    var selectedFilmInWatchlist by remember { mutableStateOf<WatchlistItem?>(null) }
+    var selectedWatchlist by remember { mutableStateOf<Watchlist?>(null) }
+
+    val haptic = LocalHapticFeedback.current
+    val hapticClick = remember {
+        { haptic.performHapticFeedback(HapticFeedbackType.VirtualKey) }
+    }
+
+    MaterialTheme(colorScheme = lightColorScheme()) {
         Scaffold(
+            modifier = Modifier.fillMaxSize(),
             bottomBar = {
-                NavigationBar {
-                    NavigationBarItem(
-                        selected = true,
-                        onClick = { navController.navigate(Screen.Home) },
-                        icon = { Icon(Icons.Default.Home, null) },
-                        label = { Text("Home") }
-                    )
-                    NavigationBarItem(
-                        selected = false,
-                        onClick = { navController.navigate(Screen.Settings) },
-                        icon = { Icon(Icons.Default.Settings, null) },
-                        label = { Text("Settings") }
-                    )
-                }
-            }
-        ) { padding ->
-            NavHost(
-                navController = navController,
-                startDestination = Screen.Home,
-                modifier = Modifier.padding(padding)
+                NavigationBar(
+                    currentScreen = currentScreen,
+                    onScreenChange = {
+                        hapticClick()
+                        if (addButtonExpanded) addButtonExpanded = false
+                        currentScreen = it
+                    },
+                )
+            },
+            topBar = {
+                SettingsButtonComposable(
+                    onClick = {}, screen = currentScreen, currentUser = dummyCurrentUser(),
+                )
+            },
+        ) { innerPadding ->
+            Box(
+                modifier = Modifier.fillMaxSize().clickable(
+                    indication = null,
+                    interactionSource = remember { MutableInteractionSource() },
+                ) {
+                    addButtonExpanded = false
+                },
+                contentAlignment = Alignment.BottomCenter,
             ) {
-                composable<Screen.Home> { HomeScreen() }
-                composable<Screen.Settings> { SettingsScreen() }
+                BackgroundComposable()
+                when (currentScreen) {
+                    Screen.Movies -> {
+                        MovieHomeScreenComposable(
+                            addButtonExpanded = addButtonExpanded,
+                            addActions = AddButtonActions(
+                                onDismiss = {
+                                    hapticClick()
+                                    addButtonExpanded = !addButtonExpanded
+                                },
+                                onRateClick = {
+                                    hapticClick()
+                                    showRatingDialog = true
+                                    addButtonExpanded = false
+                                },
+                                onWatchlistClick = {},
+                            ),
+                            ratingDialog = RatingDialogActions(
+                                show = showRatingDialog,
+                                onDismiss = {
+                                    hapticClick()
+                                    showRatingDialog = false
+                                },
+                                onConfirm = {},
+                                onRateSliderClick = {},
+                            ),
+                            watchlistDialog = WatchlistDialogActions(
+                                show = showWatchlistDialog,
+                                onShow = { film -> //TODO fix rating  etc
+                                    hapticClick()
+                                    selectedFilmInWatchlist = film
+                                    showWatchlistDialog = true
+                                },
+                                onDismiss = {
+                                    hapticClick()
+                                    showWatchlistDialog = false
+                                },
+                                onConfirm = {
+                                    hapticClick()
+                                    showWatchlistDialog = false
+                                },
+                                onWantToWatchToggleClick = { wantToWatch -> }, //TODO
+                            ),
+                            screen = currentScreen,
+                            innerPadding = innerPadding,
+                            watchLists = listOf(dummyWatchlist, privateWatchlist),
+                            selectedFilm = selectedFilmInWatchlist,
+                            addToWatchlistDialog = AddToWatchlistDialogActions(
+                                show = showAddToWatchlistDialog,
+                                onDismiss = {
+                                    hapticClick()
+                                    showAddToWatchlistDialog = false
+                                },
+                                onConfirm = {
+                                    hapticClick()
+                                    showAddToWatchlistDialog = false
+                                },
+                                onShow = { watchlist ->
+                                    hapticClick()
+                                    selectedWatchlist = watchlist
+                                    showAddToWatchlistDialog = true
+                                },
+                            ),
+                            selectedWatchlist = selectedWatchlist,
+                        )
+                    }
+
+                    else -> ComingSoonComposable(screen = currentScreen)
+                }
             }
         }
     }

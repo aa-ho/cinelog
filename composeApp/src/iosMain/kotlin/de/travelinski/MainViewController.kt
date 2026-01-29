@@ -2,4 +2,4 @@ package de.travelinski
 
 import androidx.compose.ui.window.ComposeUIViewController
 
-fun MainViewController() = ComposeUIViewController { App() }
+fun MainViewController(isDark: Boolean) = ComposeUIViewController { App() }

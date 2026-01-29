@@ -55,6 +55,10 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(projects.shared)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.tabler.icons)
+            implementation(libs.kamel.image)
+            implementation(libs.kamel.image.default)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
