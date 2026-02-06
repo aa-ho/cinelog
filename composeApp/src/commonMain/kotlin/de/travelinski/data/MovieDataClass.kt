@@ -1,4 +1,4 @@
-package de.travelinski
+package de.travelinski.data
 
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime

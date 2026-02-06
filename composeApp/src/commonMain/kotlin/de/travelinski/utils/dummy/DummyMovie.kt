@@ -1,7 +1,7 @@
 package de.travelinski.utils.dummy
 
-import de.travelinski.Director
-import de.travelinski.MovieData
+import de.travelinski.data.Director
+import de.travelinski.data.MovieData
 import kotlinx.datetime.LocalDate
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes

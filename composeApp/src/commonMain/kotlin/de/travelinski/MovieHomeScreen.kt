@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import de.travelinski.data.Watchlist
+import de.travelinski.data.WatchlistItem
 import de.travelinski.movie.watchlist.AddToWatchlistDialogComposable
 import de.travelinski.movie.watchlist.WatchlistComposable
 import de.travelinski.movie.watchlist.WatchlistDialogComposable

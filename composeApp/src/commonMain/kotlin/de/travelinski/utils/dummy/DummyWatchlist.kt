@@ -1,11 +1,11 @@
 package de.travelinski.utils.dummy
 
-import de.travelinski.MediumType
-import de.travelinski.MovieData
-import de.travelinski.UserOwningMovie
-import de.travelinski.UserWatchedAlready
-import de.travelinski.Watchlist
-import de.travelinski.WatchlistItem
+import de.travelinski.data.MediumType
+import de.travelinski.data.MovieData
+import de.travelinski.data.UserOwningMovie
+import de.travelinski.data.UserWatchedAlready
+import de.travelinski.data.Watchlist
+import de.travelinski.data.WatchlistItem
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime

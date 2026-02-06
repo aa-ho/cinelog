@@ -51,8 +51,8 @@ import compose.icons.TablerIcons
 import compose.icons.tablericons.ArrowBarToUp
 import compose.icons.tablericons.Plus
 import de.travelinski.Screen
-import de.travelinski.Watchlist
-import de.travelinski.WatchlistItem
+import de.travelinski.data.Watchlist
+import de.travelinski.data.WatchlistItem
 import de.travelinski.gradient
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource

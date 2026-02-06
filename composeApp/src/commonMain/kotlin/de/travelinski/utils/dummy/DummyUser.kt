@@ -1,6 +1,6 @@
 package de.travelinski.utils.dummy
 
-import de.travelinski.User
+import de.travelinski.data.User
 
 fun dummyUser1() = User(
     uuid = "abcd123",

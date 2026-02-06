@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.tooling.preview.Preview
+import de.travelinski.data.Watchlist
+import de.travelinski.data.WatchlistItem
 import de.travelinski.utils.dummy.dummyCurrentUser
 import de.travelinski.utils.dummy.dummyWatchlist
 import de.travelinski.utils.dummy.privateWatchlist

@@ -49,10 +49,10 @@ import androidx.compose.ui.window.Dialog
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Plus
 import de.travelinski.ActionButton
-import de.travelinski.MediumType
+import de.travelinski.data.MediumType
 import de.travelinski.Screen
-import de.travelinski.User
-import de.travelinski.WatchlistItem
+import de.travelinski.data.User
+import de.travelinski.data.WatchlistItem
 import de.travelinski.gradient
 import de.travelinski.utils.formatDuration
 import de.travelinski.utils.formatSmartDate

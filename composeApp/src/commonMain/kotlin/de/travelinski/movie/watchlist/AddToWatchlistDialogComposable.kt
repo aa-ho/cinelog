@@ -19,7 +19,7 @@ import de.travelinski.ActionButton
 import de.travelinski.BaseDialog
 import de.travelinski.CustomSearchTextField
 import de.travelinski.Screen
-import de.travelinski.Watchlist
+import de.travelinski.data.Watchlist
 
 
 @Composable
