@@ -71,11 +71,11 @@ kotlin {
 }
 
 android {
-    namespace = "de.travelinski"
+    namespace = "de.cinelog"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "de.travelinski"
+        applicationId = "de.cinelog"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -103,11 +103,11 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "de.travelinski.MainKt"
+        mainClass = "de.cinelog.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "de.travelinski"
+            packageName = "de.cinelog"
             packageVersion = "1.0.0"
         }
     }

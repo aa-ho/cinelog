@@ -1,4 +1,4 @@
-rootProject.name = "Travelinski"
+rootProject.name = "CineLog"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

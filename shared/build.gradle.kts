@@ -38,7 +38,7 @@ kotlin {
 }
 
 android {
-    namespace = "de.travelinski.shared"
+    namespace = "de.cinelog.shared"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
