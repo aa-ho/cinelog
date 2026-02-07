@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  java-app:
+    image: eclipse-temurin:17-jdk  # Java 17 Runtime
+    container_name: cinelog-api
+    volumes:
+      - ./app.jar:/app/server.jar  # deine lokale JAR wird in den Container gemountet
+    working_dir: /app
+    command: [ "java", "-jar", "app.jar" ]
+    ports:
+      - "8080:8080"  # optional, falls deine App einen Port braucht

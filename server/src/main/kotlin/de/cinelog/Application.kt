@@ -21,7 +21,8 @@ data class Movie(
 )
 
 fun main() {
-    val client = KMongo.createClient("mongodb://localhost:27017").coroutine
+    val mongoHost = System.getenv("MONGO_HOST") ?: "localhost"
+    val client = KMongo.createClient("mongodb://$mongoHost:27017").coroutine
     val database = client.getDatabase("cinelog")
     val collection = database.getCollection<Movie>("movies")
     embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
@@ -30,7 +31,7 @@ fun main() {
         }
         routing {
             get("/") {
-                call.respondText("Ktor MongoDB Server läuft!")
+                call.respondText("CineLog: Ktor MongoDB Server is running")
             }
             get("/movies") {
                 val movies = collection.find().toList()
