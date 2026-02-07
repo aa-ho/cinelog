@@ -1,12 +1,22 @@
 version: "3.9"
-
 services:
-  java-app:
-    image: eclipse-temurin:17-jdk  # Java 17 Runtime
+  mongodb:
+    image: mongo:latest
+    container_name: cinelog-db
+    volumes:
+      - /root/cinelogdb:/data/db
+    ports:
+      - "27017:27017"
+  api:
+    image: eclipse-temurin:17-jdk 
     container_name: cinelog-api
     volumes:
-      - ./app.jar:/app/server.jar  # deine lokale JAR wird in den Container gemountet
+      - ../server.jar:/app/server.jar 
     working_dir: /app
-    command: [ "java", "-jar", "app.jar" ]
+    command: [ "java", "-jar", "server.jar" ]
     ports:
-      - "8080:8080"  # optional, falls deine App einen Port braucht
+      - "8080:8080" 
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_HOST=mongodb
