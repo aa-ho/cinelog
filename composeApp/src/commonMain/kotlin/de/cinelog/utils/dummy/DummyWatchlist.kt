@@ -11,7 +11,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 
 var dummyWatchlist = Watchlist(
-    uuid = "45hsac", title = "4er Vision", movies = buildList {
+    title = "4er Vision", movies = buildList {
         repeat(1) {
             add(watchListDummyData(dummyMovie()))
             add(watchListDummyData2(dummyMovie2()))
@@ -19,7 +19,7 @@ var dummyWatchlist = Watchlist(
     }, member = listOf(dummyUser1(), dummyUser2(), dummyUser3(), dummyUser4(), dummyUser5())
 )
 var privateWatchlist = Watchlist(
-    uuid = "45hsac", title = "Private", movies = buildList {
+    title = "Private", movies = buildList {
         repeat(1) {
             add(watchListDummyData(dummyMovie()))
             add(watchListDummyData2(dummyMovie2()))
@@ -57,7 +57,6 @@ fun watchListDummyData(movie: MovieData) = WatchlistItem(
             user = dummyUser3(), mediumType = MediumType.BLU_RAY,
         )
     ),
-    uuid = "3b",
 )
 
 fun watchListDummyData2(movie: MovieData) = WatchlistItem(
@@ -77,5 +76,4 @@ fun watchListDummyData2(movie: MovieData) = WatchlistItem(
             user = dummyUser3(), mediumType = MediumType.BLU_RAY,
         )
     ),
-    uuid = "3b",
 )

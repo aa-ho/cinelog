@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 kotlin {
@@ -59,6 +60,14 @@ kotlin {
             implementation(libs.tabler.icons)
             implementation(libs.kamel.image)
             implementation(libs.kamel.image.default)
+
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+
+            implementation(libs.kotlinx.serialization.json)      // Serializer
+            implementation(libs.ktor.serialization.kotlinx.json) // Ktor-Integration
+            //TODO darwin for iOS and for Android CIO
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

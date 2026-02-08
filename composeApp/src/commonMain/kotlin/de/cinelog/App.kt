@@ -4,8 +4,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import de.cinelog.data.Watchlist
 import de.cinelog.data.WatchlistItem
 import de.cinelog.utils.dummy.dummyCurrentUser
@@ -115,7 +118,7 @@ fun App() {
                             ),
                             screen = currentScreen,
                             innerPadding = innerPadding,
-                            watchLists = listOf(dummyWatchlist, privateWatchlist),
+                            watchLists = listOf(dummyWatchlist /*privateWatchlist*/),
                             selectedFilm = selectedFilmInWatchlist,
                             addToWatchlistDialog = AddToWatchlistDialogActions(
                                 show = showAddToWatchlistDialog,

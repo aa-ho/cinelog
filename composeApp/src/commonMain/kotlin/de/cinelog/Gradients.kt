@@ -28,8 +28,8 @@ val Screen.gradient: Brush
 
         Screen.Restaurants -> Brush.horizontalGradient(
             listOf(
-                Color(0xFFF7971E),
                 Color(0xFFFFD200),
+                Color(0xFFF7971E),
             )
         )
     }

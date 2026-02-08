@@ -1,0 +1,43 @@
+[
+  {
+    "watchlistId": "698c72be9416d629588ce5b5",
+    "title": "Sci-Fi Favorites",
+    "members": [
+      "698c72b29416d629588ce5b3",
+      "698c72b89416d629588ce5b4"
+    ],
+    "membersAvatars": {
+      "698c72b29416d629588ce5b3": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Arnold_Schwarzenegger_%2833730956438%29_%28cropped%29.jpg",
+      "698c72b89416d629588ce5b4": "https://www.rollingstone.de/wp-content/uploads/2026/01/sydney-sweeney-GettyImages-2252152133.jpeg"
+    },
+    "movies": [
+      {
+        "movieId": "698c729f9416d629588ce5b1",
+        "addedBy": "698c72b29416d629588ce5b3",
+        "addedByAvatar": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Arnold_Schwarzenegger_%2833730956438%29_%28cropped%29.jpg"
+      },
+      {
+        "movieId": "698c72a69416d629588ce5b2",
+        "addedBy": "698c72b29416d629588ce5b3",
+        "addedByAvatar": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Arnold_Schwarzenegger_%2833730956438%29_%28cropped%29.jpg"
+      }
+    ]
+  },
+  {
+    "watchlistId": "698c9e79bc429722868ce5b0",
+    "title": "Action Hits",
+    "members": [
+      "698c72b29416d629588ce5b3"
+    ],
+    "membersAvatars": {
+      "698c72b29416d629588ce5b3": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Arnold_Schwarzenegger_%2833730956438%29_%28cropped%29.jpg"
+    },
+    "movies": [
+      {
+        "movieId": "698c72a69416d629588ce5b2",
+        "addedBy": "698c72b29416d629588ce5b3",
+        "addedByAvatar": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Arnold_Schwarzenegger_%2833730956438%29_%28cropped%29.jpg"
+      }
+    ]
+  }
+]

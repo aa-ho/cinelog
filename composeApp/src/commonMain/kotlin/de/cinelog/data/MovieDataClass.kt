@@ -54,7 +54,6 @@ data class Director(
 
 @OptIn(ExperimentalUuidApi::class)
 data class User(
-    val uuid: String,
     val name: String,
     val avatarUrl: String? = null,
 )
@@ -70,7 +69,6 @@ data class UserOwningMovie(
 )
 
 data class WatchlistItem(
-    val uuid: String,
     val movieData: MovieData,
     val dateAdded: LocalDate,
     val lastModified: LocalDateTime,
@@ -81,7 +79,6 @@ data class WatchlistItem(
 )
 
 data class Watchlist(
-    val uuid: String,
     val member: List<User>,
     val title: String,
     val movies: List<WatchlistItem?>,

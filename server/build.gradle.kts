@@ -23,5 +23,6 @@ dependencies {
     testImplementation(libs.kotlin.testJunit)
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
-    implementation(libs.kmongo.coroutine.serialization)
+    implementation(libs.ktor.client.cio) //TODO richtige?
+    implementation(libs.litote.kmongo.coroutine)
 }

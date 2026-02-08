@@ -42,6 +42,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,8 +51,9 @@ import androidx.compose.ui.unit.sp
 import cinelog.composeapp.generated.resources.Res
 import cinelog.composeapp.generated.resources.film_placeholder
 import compose.icons.TablerIcons
-import compose.icons.tablericons.ArrowBarToUp
+import compose.icons.tablericons.ArrowUp
 import compose.icons.tablericons.Plus
+import compose.icons.tablericons.QuestionMark
 import de.cinelog.Screen
 import de.cinelog.data.Watchlist
 import de.cinelog.data.WatchlistItem
@@ -100,7 +102,7 @@ fun WatchlistComposable(
                             targetValue = if (expanded) 180f else 0f, label = "rotation",
                         )
                         Icon(
-                            imageVector = TablerIcons.ArrowBarToUp,
+                            imageVector = TablerIcons.ArrowUp,
                             contentDescription = if (expanded) "Collapse" else "Expand",
                             modifier = Modifier.rotate(angle)
                         )
@@ -146,7 +148,14 @@ fun WatchlistComposable(
                                                     contentDescription = null,
                                                     contentScale = ContentScale.Crop,
                                                     modifier = Modifier.fillMaxSize(),
-                                                    animationSpec = tween(durationMillis = 300)
+                                                    onFailure = {
+                                                        AdditionalCards(
+                                                            onClick = {},
+                                                            imageVector = TablerIcons.QuestionMark,
+                                                            modifier = Modifier.fillMaxSize(),
+                                                        )
+                                                    },
+                                                    animationSpec = tween(durationMillis = 3000)
                                                 )
                                             }
                                         }
@@ -165,7 +174,14 @@ fun WatchlistComposable(
                             }
                         }
                         item {
-                            AddNewCard(onClick = { onShowAddDialog() })
+                            AdditionalCards(
+                                onClick = { onShowAddDialog() },
+                                imageVector = TablerIcons.Plus,
+                                modifier = Modifier.fillMaxSize().background(
+                                    brush = Screen.Movies.gradient,
+                                    alpha = 0.8f,
+                                ),
+                            )
                         }
                     }
                 }
@@ -177,8 +193,10 @@ fun WatchlistComposable(
 }
 
 @Composable
-fun AddNewCard(
+fun AdditionalCards(
     onClick: () -> Unit,
+    imageVector: ImageVector,
+    modifier: Modifier = Modifier,
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
@@ -187,14 +205,11 @@ fun AddNewCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp)
     ) {
         Box(
-            modifier = Modifier.fillMaxSize().background(
-                brush = Screen.Movies.gradient,
-                alpha = 0.8f,
-            ),
+            modifier = modifier,
             contentAlignment = Alignment.Center,
         ) {
             Icon(
-                imageVector = TablerIcons.Plus,
+                imageVector = imageVector,
                 contentDescription = "Add",
                 tint = Color.White,
                 modifier = Modifier.size(35.dp).background(Color(0x55000000), CircleShape)
