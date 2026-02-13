@@ -75,7 +75,6 @@ data class User(
 data class WatchlistMovieResponse(
     val movieId: String,
     val addedBy: String?,
-    val addedByAvatar: String?,
 )
 
 @Serializable

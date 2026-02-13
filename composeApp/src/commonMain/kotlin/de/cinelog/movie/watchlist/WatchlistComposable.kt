@@ -58,14 +58,14 @@ import de.cinelog.Screen
 import de.cinelog.data.Watchlist
 import de.cinelog.data.WatchlistItem
 import de.cinelog.gradient
+import de.cinelog.network.WatchlistResponse
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.resources.painterResource
 
-@Preview
 @Composable
 fun WatchlistComposable(
-    watchlist: Watchlist?,
+    watchlist: WatchlistResponse?,
     onShowDialog: (WatchlistItem) -> Unit,
     onShowAddDialog: () -> Unit,
 ) {
@@ -75,7 +75,8 @@ fun WatchlistComposable(
         shape = RoundedCornerShape(10),
     ) {
         if (watchlist != null) {
-            val isPrivateWatchlist = watchlist.member.size > 1
+            //val isPrivateWatchlist = watchlist.members.size > 1 //TODO should be done im mongodb!
+            val isPrivateWatchlist = false
             Column(
                 Modifier.padding(bottom = 14.dp, start = 16.dp, end = 16.dp)
             ) {
@@ -87,10 +88,10 @@ fun WatchlistComposable(
                         text = watchlist.title, fontSize = 22.sp, fontWeight = FontWeight.Bold
                     )
                     Spacer(Modifier.padding(horizontal = 5.dp))
-                    if (isPrivateWatchlist) {
-                        watchlist.member.take(5).forEachIndexed { index, member ->
+                    if (!isPrivateWatchlist) {
+                        watchlist.membersAvatars.values.take(5).forEachIndexed { index, avatar ->
                             Avatar(
-                                user = member,
+                                avatarUrl = avatar,
                                 size = 25.dp,
                                 modifier = Modifier.offset(x = (-index * 15).dp),
                             )
@@ -117,13 +118,13 @@ fun WatchlistComposable(
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         itemsIndexed(items = watchlist.movies) { _, movieNullable ->
-                            movieNullable?.let { movie ->
+                            movieNullable.let { movie ->
                                 Box {
                                     Card(
                                         shape = RoundedCornerShape(16.dp),
                                         modifier = Modifier.width(80.dp).height(120.dp)
                                             .shadow(8.dp, RoundedCornerShape(16.dp)).clickable {
-                                                onShowDialog(movie)
+                                                //onShowDialog(movie)
                                             },
                                         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                                     ) {
@@ -132,41 +133,41 @@ fun WatchlistComposable(
                                                 RoundedCornerShape(16.dp)
                                             )
                                         ) {
-                                            if (movie.movieData.coverUrl == null) {
-                                                Image(
-                                                    painter = painterResource(Res.drawable.film_placeholder),
-                                                    contentDescription = null,
-                                                    contentScale = ContentScale.Crop,
-                                                    modifier = Modifier.fillMaxSize()
-                                                        .clip(RoundedCornerShape(16.dp))
-                                                )
-                                            } else {
-                                                KamelImage(
-                                                    resource = {
-                                                        asyncPainterResource(movie.movieData.coverUrl)
-                                                    },
-                                                    contentDescription = null,
-                                                    contentScale = ContentScale.Crop,
-                                                    modifier = Modifier.fillMaxSize(),
-                                                    onFailure = {
-                                                        AdditionalCards(
-                                                            onClick = {},
-                                                            imageVector = TablerIcons.QuestionMark,
-                                                            modifier = Modifier.fillMaxSize(),
-                                                        )
-                                                    },
-                                                    animationSpec = tween(durationMillis = 3000)
-                                                )
-                                            }
+                                            // if (movie.movieData.coverUrl == null) {
+                                            Image(
+                                                painter = painterResource(Res.drawable.film_placeholder),
+                                                contentDescription = null,
+                                                contentScale = ContentScale.Crop,
+                                                modifier = Modifier.fillMaxSize()
+                                                    .clip(RoundedCornerShape(16.dp))
+                                            )/*                                            } else {
+                                                                                            KamelImage(
+                                                                                                resource = {
+                                                                                                    asyncPainterResource(movie.movieData.coverUrl)
+                                                                                                },
+                                                                                                contentDescription = null,
+                                                                                                contentScale = ContentScale.Crop,
+                                                                                                modifier = Modifier.fillMaxSize(),
+                                                                                                onFailure = {
+                                                                                                    AdditionalCards(
+                                                                                                        onClick = {},
+                                                                                                        imageVector = TablerIcons.QuestionMark,
+                                                                                                        modifier = Modifier.fillMaxSize(),
+                                                                                                    )
+                                                                                                },
+                                                                                                animationSpec = tween(durationMillis = 3000)
+                                                                                            )
+                                                                                        }*/
                                         }
                                     }
-                                    if (isPrivateWatchlist) {
+                                    if (!isPrivateWatchlist) {
+                                        val avatarUrl = watchlist.membersAvatars[movie.addedBy]
                                         Box(
                                             modifier = Modifier.align(Alignment.BottomEnd)
                                                 .offset(x = 5.dp, y = 5.dp)
                                         ) {
                                             Avatar(
-                                                user = movie.addedBy, size = 25.dp,
+                                                avatarUrl = avatarUrl, size = 25.dp,
                                             )
                                         }
                                     }

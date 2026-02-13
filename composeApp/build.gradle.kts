@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.android
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -9,6 +10,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
     alias(libs.plugins.kotlinxSerialization)
+
 }
 
 kotlin {
@@ -17,34 +19,33 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     listOf(
-        iosArm64(),
-        iosSimulatorArm64()
+        iosArm64(), iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
         }
     }
-    
+
     jvm()
-    
+
     js {
         browser()
         binaries.executable()
     }
-    
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
+
+    @OptIn(ExperimentalWasmDsl::class) wasmJs {
         browser()
         binaries.executable()
     }
-    
+
     sourceSets {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -60,14 +61,17 @@ kotlin {
             implementation(libs.tabler.icons)
             implementation(libs.kamel.image)
             implementation(libs.kamel.image.default)
+            implementation(libs.coil.compose)
 
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
-
-            implementation(libs.kotlinx.serialization.json)      // Serializer
-            implementation(libs.ktor.serialization.kotlinx.json) // Ktor-Integration
+            implementation(libs.ktor.ktor.client.cio)
             //TODO darwin for iOS and for Android CIO
+            // commonMain
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

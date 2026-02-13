@@ -17,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import de.cinelog.data.User
 import de.cinelog.movie.watchlist.Avatar
 
-@Preview
+
 @Composable
-fun SettingsButtonComposable(onClick: () -> Unit, screen: Screen, currentUser: User) {
+fun SettingsButtonComposable(onClick: () -> Unit, screen: Screen, avatarUrl: String?) {
     Row(Modifier.fillMaxWidth().padding(horizontal = 15.dp, vertical = 50.dp)) {
         Spacer(Modifier.weight(1f))
         Surface(
@@ -33,7 +33,7 @@ fun SettingsButtonComposable(onClick: () -> Unit, screen: Screen, currentUser: U
                 ),
                 contentAlignment = Alignment.Center,
             ) {
-                Avatar(size = 39.dp, user = currentUser)
+                Avatar(size = 39.dp, avatarUrl = avatarUrl)
             }
         }
     }

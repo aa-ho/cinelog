@@ -39,12 +39,17 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import cinelog.composeapp.generated.resources.Res
@@ -63,13 +68,14 @@ import de.cinelog.utils.formatDuration
 import de.cinelog.utils.formatSmartDate
 import de.cinelog.utils.formatSmartDateTime
 import de.cinelog.utils.simpleFormatDate
+import io.kamel.core.Resource
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 
-@Composable
+/*@Composable
 fun WatchlistDialogComposable(
     showDialog: Boolean,
     watchlistItemData: WatchlistItem?,
@@ -236,7 +242,7 @@ fun WatchlistDialogComposable(
             }
         }
     }
-}
+}*/
 
 @Composable
 fun PlaceHolderComposable(modifier: Modifier) {
@@ -294,26 +300,32 @@ private fun ToggleButton(
 
 @Composable
 fun Avatar(
-    user: User, size: Dp = 30.dp, onClick: () -> Unit = {},
+    avatarUrl: String?, size: Dp = 30.dp, onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier.padding(2.dp).size(size).clip(CircleShape).clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
-        if (user.avatarUrl == null) {
+        if (avatarUrl == null) {
             Image(
-                painter = painterResource(user.avatarUrl ?: Res.drawable.dummy_avatar),
+                painter = painterResource(avatarUrl ?: Res.drawable.dummy_avatar),
                 contentDescription = "Avatar",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.background(Screen.Movies.gradient, CircleShape),
             )
         } else {
+            val density = LocalDensity.current
+            val maxPx = with(LocalDensity.current) { size.toPx().toInt() * 3 }
+            val resource: Resource<Painter> = asyncPainterResource(
+                data = avatarUrl,
+                maxBitmapDecodeSize = IntSize(maxPx, maxPx)
+            )
             KamelImage(
-                resource = { asyncPainterResource(user.avatarUrl) },
+                modifier = Modifier.size(size),
+                resource = { resource },
                 contentDescription = "Avatar",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize(),
                 animationSpec = tween(durationMillis = 300),
             )
         }

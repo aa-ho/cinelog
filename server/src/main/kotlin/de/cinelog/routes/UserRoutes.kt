@@ -21,8 +21,7 @@ suspend fun ApplicationCall.respondUserWatchlists(
     } catch (_: IllegalArgumentException) {
         return respondText("Invalid userId")
     }
-    val user = usersCollection.findOneById(userId)
-        ?: return respondText("User not found")
+    val user = usersCollection.findOneById(userId) ?: return respondText("User not found")
     val allUserIds = mutableSetOf<ObjectId>()
     allUserIds.addAll(user.watchlists)
     val watchlistsFromDb = watchlistsCollection.find(
@@ -44,9 +43,8 @@ suspend fun ApplicationCall.respondUserWatchlists(
                 WatchlistMovieResponse(
                     movieId = m.movieId.toHexString(),
                     addedBy = m.addedBy?.toHexString(),
-                    addedByAvatar = m.addedBy?.let { usersMap[it] }
                 )
-            }
+            },
         )
     }
     respond(watchlistsWithMovies)

@@ -6,7 +6,6 @@ import kotlinx.serialization.Serializable
 data class WatchlistMovieResponse(
     val movieId: String,
     val addedBy: String?,
-    val addedByAvatar: String?,
 )
 
 @Serializable
